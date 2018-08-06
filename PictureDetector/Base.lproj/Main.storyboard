@@ -50,6 +50,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="imageView" destination="B9w-Ao-h5K" id="gGE-fi-E1P"/>
                         <outlet property="tableView" destination="Sum-2B-sIC" id="a5c-jI-oTd"/>
                     </connections>
                 </viewController>
