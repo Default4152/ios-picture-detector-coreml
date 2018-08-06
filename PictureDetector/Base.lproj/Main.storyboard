@@ -24,7 +24,7 @@
                                     <constraint firstAttribute="height" constant="259" id="ZnZ-dm-vDA"/>
                                 </constraints>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B9w-Ao-h5K">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo-camera" translatesAutoresizingMaskIntoConstraints="NO" id="B9w-Ao-h5K">
                                 <rect key="frame" x="0.0" y="64" width="375" height="336"/>
                             </imageView>
                         </subviews>
@@ -76,4 +76,7 @@
             <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="photo-camera" width="512" height="512"/>
+    </resources>
 </document>
