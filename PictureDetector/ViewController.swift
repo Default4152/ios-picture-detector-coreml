@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var tableView: UITableView!
     var resnet50Model = Resnet50()
+    var analysisResults: [VNClassificationObservation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let model = try? VNCoreMLModel(for: resnet50Model.model) {
             let request = VNCoreMLRequest(model: model) { (request, error) in
                 if let results = request.results as? [VNClassificationObservation] {
-                    print(results)
+                    self.analysisResults = Array(results.prefix(10))
+                    self.tableView.reloadData()
+//                    for result in results {
+//                        self.analysisResults[result.identifier] = result.confidence
+//                    }
+//                    print(self.analysisResults)
                 }
             }
             if let imageData = image.jpegData(compressionQuality: 1.0) {
@@ -43,12 +49,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return analysisResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = "Hello"
+        let result = analysisResults[indexPath.row]
+        let name = result.identifier.prefix(20)
+        cell.textLabel?.text = "\(name): \(result.confidence * 50)%"
         return cell
     }
 }
