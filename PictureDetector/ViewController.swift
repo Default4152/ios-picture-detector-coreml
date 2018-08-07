@@ -68,7 +68,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = UITableViewCell()
         let result = analysisResults[indexPath.row]
         let name = result.identifier.prefix(20)
-        cell.textLabel?.text = "\(name): \(result.confidence * 50)%"
+        cell.textLabel?.text = "\(name): \(Int(result.confidence * 100))%"
         return cell
     }
 }
