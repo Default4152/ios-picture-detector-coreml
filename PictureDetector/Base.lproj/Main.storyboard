@@ -46,7 +46,11 @@
                     <navigationItem key="navigationItem" title="Picture Detector" id="HnW-QM-SlA">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="camera" id="5p6-g0-bfA"/>
-                            <barButtonItem systemItem="organize" id="Zph-m4-j6V"/>
+                            <barButtonItem systemItem="organize" id="Zph-m4-j6V">
+                                <connections>
+                                    <action selector="imagePicker:" destination="BYZ-38-t0r" id="bhz-qw-vwa"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>

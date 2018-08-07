@@ -10,21 +10,37 @@ import UIKit
 import CoreML
 import Vision
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var tableView: UITableView!
+    
     var resnet50Model = Resnet50()
     var analysisResults: [VNClassificationObservation] = []
+    var pickerController = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
+        pickerController.delegate = self
         
         if let image = imageView.image {
             whatIsThis(image: image)
         }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            imageView.image = image
+            whatIsThis(image: image)
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func imagePicker(_ sender: Any) {
+        pickerController.sourceType = .photoLibrary
+        present(pickerController, animated: true, completion: nil)
     }
     
     func whatIsThis(image: UIImage) {
@@ -33,10 +49,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if let results = request.results as? [VNClassificationObservation] {
                     self.analysisResults = Array(results.prefix(10))
                     self.tableView.reloadData()
-//                    for result in results {
-//                        self.analysisResults[result.identifier] = result.confidence
-//                    }
-//                    print(self.analysisResults)
                 }
             }
             if let imageData = image.jpegData(compressionQuality: 1.0) {
